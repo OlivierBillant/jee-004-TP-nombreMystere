@@ -32,12 +32,18 @@ public class Traitement extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		nombreTest = Integer.parseInt(request.getParameter("nombre"));
-		if(nombreTest != nombreMystere) {
-			response.sendRedirect("./echec.html");
-		}else {
-		response.sendRedirect("./victoire.html");
+		try {
+			nombreTest = Integer.parseInt(request.getParameter("nombre"));
+			if(nombreTest != nombreMystere) {
+				response.sendRedirect("./echec.html");
+			}else {
+			init();
+			response.sendRedirect("./victoire.html");
+			}
+		} catch (NumberFormatException ne) {
+			response.sendRedirect("./gestionErreur.html");
 		}
+		
 	}
 
 	@Override
